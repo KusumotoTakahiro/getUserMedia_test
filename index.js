@@ -6,6 +6,7 @@ let canvas = null;  //canvas referance
 let photo = null;   //photo referance
 let state = null;
 let input = null;
+let device = null;
 
 function startUP() {
   video = document.getElementById("video");
@@ -13,8 +14,15 @@ function startUP() {
   photo = document.getElementById("photo");
   state = document.getElementById("status");
   input = document.getElementById("uploadPicture");
+  device = document.getElementById("device");
 
   state.innerText = "Start UP"
+
+  if (isSmartPhone()) {
+    device.innerText = "Smart Phone"
+  } else {
+    device.innerText = "PC"
+  }
   
   //this event is fired when the video can ready to stream.(a.k.a: video can play)
   video.addEventListener(
@@ -60,9 +68,12 @@ function startUP() {
   clearPhoto();
 }
 
-//this function can resize a picture data from Upload tag.
-function resizePicture(imageData) {
-  clearPhoto();
+function isSmartPhone() {
+  if (navigator.userAgent.match(/iPhone|Android.+Mobile/)) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 //this function is called when the window size is changed
