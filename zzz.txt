@@ -1,0 +1,30 @@
+How to use getUserMedia
+
+constraintsは制約のこと．主に，以下のような制約を記載できる．
+audioは音声，videoは画像
+constraints = {
+  audio: true,
+  video: {
+    width: { min: 1024, ideal: 1280, max:1920 },
+    height: { min: 576, ideal: 720, max: 1080 }
+  }
+}
+のように書くことができる．
+ここで，min,maxは最大値最小値のことで，基本的に必須の値．例えば，width { 1280 }と書けば，
+min=max=1280と解釈される．
+逆に，idealは入れても入れなくてもいい値．意味合い的には，「望ましい値」のことで，書いてあるなら
+その値に最も近い値を探して使ってくれるとのこと．
+
+また，mobile devices向けであれば，フロントカメラとリアカメラがあるため，
+video: { facingMode: "user" }や video: { facingMode: "enviroment" }のように指定するらしい．
+また，PCで利用している際にカメラが複数あるなどの場合は，deviceIDを指定することがある．
+
+以下Errorについて，基本的には，User等から許可が下りれば，エラーは発生していない．
+NotAllowerdError（SecurityError) ブラウザが安全でない場合やUserが拒否した場合に発生する
+NotFoundError constraintsに当てはまるデバイスが見つからない場合のエラー
+NotReadableError UserやOS，ブラウザなどで許可が下りなかった場合のエラー
+OverConstrainedError　NotFoundErrorと似ているが，デバイスはあるけど，制約を満たせていない
+ってことで返ってくるっぽい．（いまいちわかってない）
+とりあえず，このエラーの場合は，満たせなかったエラーとその説明みたいな短い文字列みたいなものが
+返ってくるらしい．
+SecurityError　User側とのSecurityとなんかしら干渉した場合に返ってくるエラー
