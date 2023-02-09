@@ -89,12 +89,21 @@ function resize() {
 
 async function cameraOn() {
   state.innerText = "In preparation, Permission granted"
-  //variable to preserve the video result.
-  let stream = null;
-  //setting constraints 
-  const constraints = {
-    audio: false, 
-    video: true //this code is too short. should be more detailed.
+  let stream = null; //variable to preserve the video result.
+  const constraints = null;
+  if (isSmartPhone()) { //setting constraints 
+    constraints = {
+      audio: false, 
+      video: {
+        facingMode: "environment"
+      }
+    }
+  } else {
+    device.innerText = "PC"
+    constraints = {
+      audio: false, 
+      video: true //this code is too short. should be more detailed.
+    }
   }
   //get the references.
   const video = document.getElementById("video")
