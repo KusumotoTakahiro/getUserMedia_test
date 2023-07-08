@@ -95,7 +95,8 @@ async function cameraOn() {
     constraints = {
       audio: false, 
       video: {
-        facingMode: "environment"
+        //facingMode: "environment"
+        facingMode: 'user'
       }
     }
   } else {
